@@ -3,9 +3,9 @@ export const getPokemones = async () => {
 
     //llamado a la api
     const response = await fetch(url);
-    const pokemonesJSON = await response.json();
-    //guarda en el state
-    setPokemones(pokemonesJSON.results);
+    const {results} = await response.json();
+		
 
+		return results;
 
 }
