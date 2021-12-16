@@ -8,6 +8,7 @@ import TableItem from "./TableItem";
 const Home = () => {
   //State utilizado para usar los pokemones de la api en el componente row
   const [pokemones, setPokemones] = useState([]);
+	const [isLoading, setIsLoading] = useState(true);
   //indice para cada una de las row, react obliga a tener un indice Key
   let i = 1;
 
@@ -16,8 +17,12 @@ const Home = () => {
   useEffect( async () => {
     //trae la data de la api
 		getPokemones()
-			.then( resp => setPokemones(resp))
-		
+			.then( resp => {
+				setPokemones(resp);
+				setIsLoading(false);	
+				console.log('En el then')
+			})
+	console.log('asd');
   }, []);
 
   return (
@@ -33,8 +38,11 @@ const Home = () => {
           {
             //itera el state
           }
-          {pokemones.map((pokemon) => (
-            <TableItem key={i++} pokemonParam={pokemon} />
+          {
+					console.log(pokemones),
+					pokemones.map((pokemon) => (
+						<h1 key={pokemon.id}>{pokemon.name}</h1>
+						// <TableItem key={pokemon.id} pokemonParam={pokemon} isLoading={isLoading}/>
           ))}
         </tbody>
       </Table>
