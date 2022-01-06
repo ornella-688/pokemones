@@ -12,17 +12,20 @@ export const getPokemones = async () => {
 				let id = characterResp.id
 				let descUrl = `https://pokeapi.co/api/v2/pokemon-species/${id}`
 				let descQuery = await fetch(descUrl);
-				let descResp = await descQuery.json();
-				descResp.flavor_text_entries.map();
-
+				let { flavor_text_entries: descResp} = await descQuery.json();
+				let desc = '';
+				descResp.map( resp => {
+						if(resp.language.name === 'es'){
+							desc = resp.flavor_text;
+						}
+				});
 
 				let img = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`;
-				console.log(descUrl)
 				let pokeball = { 
 					id: id,
 					name: name,
 					img: img,
-					// desc: desc
+					desc: desc
 				}
 				
 				return pokeball;

@@ -1,6 +1,6 @@
 import React from 'react'
 import banner from '../../assets/images/poke.jpg'
-import './banner.css';
+// import './banner.css';
 
 export const Banner = () => {
 	return (
