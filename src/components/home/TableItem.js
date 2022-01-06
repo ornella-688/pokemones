@@ -10,7 +10,7 @@ const TableItem = ({ pokemonParam }) => {
 				{
 					pokemonParam.map(poke => {
 						return (
-							<div className="col-sm-6 col-md-4"  key={poke.id}>
+							<div className="col-sm-12 col-md-4"  key={poke.id}>
 								<div className="card">
 									<div>
 										<div className="card-image">
