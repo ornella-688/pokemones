@@ -1,46 +1,39 @@
 import React, { useEffect, useState } from "react";
-import { Table } from "react-bootstrap";
+import { getPokemones } from "../../helpers/getPokemones";
+import { Banner } from "./Banner";
 import TableItem from "./TableItem";
 
+
 const Home = () => {
-  const url = "https://pokeapi.co/api/v2/pokemon";
-  //State utilizado para usar los pokemones de la api en el componente row
-  const [pokemones, setPokemones] = useState([]);
-  //indice para cada una de las row, react obliga a tener un indice Key
-  let i = 1;
+	//State utilizado para usar los pokemones de la api en el componente row
+	const [pokemones, setPokemones] = useState([]);
+	//una vez que
 
-  //llamado a la api
-  const fetchApi = async () => {
-    const pokemones = await fetch(url);
-    const pokemonesJSON = await pokemones.json();
-    //guarda en el state
-    setPokemones(pokemonesJSON.results);
-  };
-  //una vez que
-  useEffect(() => {
-    //trae la data de la api
-    fetchApi();
-  }, []);
+	useEffect(() => {
+		//trae la data de la api
 
-  return (
-    <>
-      <Table striped bordered hover size="dark">
-        <thead>
-          <tr>
-            <th>Name</th>
-          </tr>
-        </thead>
-        <tbody>
-          {
-            //itera el state
-          }
-          {pokemones.map((pokemon) => (
-            <TableItem key={i++} pokemonParam={pokemon} />
-          ))}
-        </tbody>
-      </Table>
-    </>
-  );
+		getPokemones()
+			.then(resp => {
+				//Esperamos que se cumplan todas las promesas
+				Promise.all(resp).then(values => {
+					setPokemones(values);
+				});
+			})
+	}, []);
+
+	return (
+		<>
+			<Banner />
+			<TableItem key='TableItem' pokemonParam={pokemones} ></TableItem>
+			{
+				//itera el state
+				// console.log(pokemones),
+
+
+			}
+
+		</>
+	);
 };
 
 export default Home;
